@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+    <label>name</label> 
+    <input type="text" name="name" value="{{data.name}}"><br><br>
+    <label>age</label>
+    <input type="text" name="age" value="{{data.age}}"><br><br>
+    <label>gender</label>
+    <input type="radio" name="gender" value="male" {% if data.gender == 'male' %} checked {% endif %} >male
+    <input type="radio" name="gender" value="female"  {% if data.gender == 'female' %} checked {% endif %} >female
+    <input type="radio" name="gender" value="others"  {% if data.gender == 'others' %} checked {% endif %} >others<br><br>
+
+    <label>field</label>
+    <input type="text" name="field" value="{{data.field}}"><br><br>
+   
+    <label>hospital name</label>
+    <input type="text" name="hospitalname" value="{{data.hospitalname}}"><br><br>
+    <label>phone no</label>
+    <input type="text" name="mobileno" value="{{data.mobileno}}"><br><br>
+    <input type="submit" value="Edit doctor">
+    </form>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>doctor Table</title>
+</head>
+<body>
+
+  <h2>manage doctors</h2>
+
+  <table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+      <tr>
+        <th>name</th>
+        <th>age</th>
+        <th>gender</th>
+        <th>field</th>
+        <th>hospital_name</th>
+        <th>mobileno</th>
+        <th>manage</th>
+        
+
+      </tr>
+    </thead>
+    <tbody> <a href="adddoctor">Add doctor</a><br>
+     
+      {% for i in data %}
+      <tr>
+        <td>{{ i.name }}</td>
+        <td>{{i.age}}</td>
+        <td>{{i.gender}}</td>
+        <td>{{i.field}}</td>
+         <td>{{i.hospitalname}}</td>
+        <td>{{i.mobileno}}</td>
+          <td>
+          <a href="editdoctor/{{i.id}}"><button>Edit</button></a>
+          <a href="DeleteDoctor/{{i.LOGINID.id}}"><button>Delete</button></a>
+        
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+</body>
+</html>

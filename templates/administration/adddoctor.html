@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+    <label>name</label> 
+    <input type="text" name="name"><br><br>
+    <label>age</label>
+    <input type="text" name="age"><br><br>
+    <label>gender</label>
+    <input type="radio" name="gender" value="male">male
+    <input type="radio" name="gender" value="female">female
+    <input type="radio" name="gender" value="others">others<br><br>
+
+    <label>field</label>
+    <input type="text" name="field"><br><br>
+    <label>Username</label>
+    <input type="text" name="username"><br><br>
+    <label>password</label>
+    <input type="password" name="password"><br><br>
+    <label>hospital name</label>
+    <input type="text" name="hospitalname"><br><br>
+    <label>mobileno</label>
+    <input type="text" name="mobileno"><br><br>
+    <input type="submit" value="add doctor">
+    </form> 
+</body>
+</html>

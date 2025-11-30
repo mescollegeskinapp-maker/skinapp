@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>feedback</title>
+</head>
+<body>
+
+  <h2>feedback</h2>
+
+  <table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+      <tr>
+        <th>name</th>
+        <th>date</th>
+        <th>feedback</th>
+        
+        
+      </tr>
+    </thead>
+    <tbody> 
+      {% for i in data %}
+      <tr>
+        <td>{{i.USERID.name }}</td>
+        <td>{{i.date}}</td>
+        <td>{{i.feedback}}</td>
+      
+       
+      </tr>
+      {% endfor %}
+      
+        
+      
+    </tbody>
+  </table>
+
+</body>
+</html>

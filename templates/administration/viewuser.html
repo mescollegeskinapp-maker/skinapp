@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Table</title>
+</head>
+<body>
+
+  <h2>users</h2>
+
+  <table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+      <tr>
+       
+        <th> Name</th>
+        <th>age</th>
+       <th>mobileno</th>
+      
+        <th>gender</th>
+        <th>email</th>
+        
+      </tr>
+    </thead>
+    <tbody> {% for i in data %}
+      <tr>
+        
+        
+        <td>{{i.name}}</td>
+        <td>{{i.age}}</td>
+        <td>{{i.mobileno}}</td>
+        <td>{{i.gender}}</td>
+        <td>{{i.email}}</td>
+       
+        
+
+        
+      </tr>
+      {% endfor %}
+      
+    </tbody>
+  </table>
+
+</body>
+</html>

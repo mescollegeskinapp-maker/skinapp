@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Table</title>
+</head>
+<body>
+
+  <h2>prescription</h2>
+
+  <table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+      <tr>
+        <th>ID</th>
+         <th>patientname</th>
+        <th>prescription</th>
+        <th>date</th>
+        <th>manage</th>
+       
+      </tr>
+    </thead>
+    <tbody>
+      {%for i in data %}
+      <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{i.BookingID.USERID.name}}</td>
+        <td>{{i.Prescription}}</td>
+        <td>{{i.date}}</td>
+        <td>
+          <button><a href="editprescription/{{i.id}}">Edit</a></button>
+        <!-- <button>  <a href="DeletePrescription/{{i.id}}">Delete</a></button> -->
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+</body>
+</html>
