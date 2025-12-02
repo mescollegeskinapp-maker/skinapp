@@ -157,8 +157,8 @@ from skinapp.serializer import *
 class LoginPage_api(APIView):
      def post(self, request):
           response_dict={}
-          username=request.data.get['username']
-          password=request.data.get['password']
+          username=request.data.get('username')
+          password=request.data.get('password')
           if not username or not password:
                response_dict['message']="failed"
                return Response(response_dict,status=status.HTTP_400_BAD_REQUEST)
@@ -174,9 +174,11 @@ class LoginPage_api(APIView):
     
 class UserReg_api(APIView):
      def post(self,request):
-        print("#######################")
+        print("#######################",request.data)
         user_serial=UserSerializer(data=request.data)
         login_serial=LoginSerializer(data=request.data)
+        print("#######################",user_serial.is_valid())
+        print("#######################",login_serial.is_valid())
         data_valid=user_serial.is_valid()
         login_valid=login_serial.is_valid()
         if data_valid and login_valid:
@@ -190,9 +192,10 @@ class UserReg_api(APIView):
                 'user_errors':user_serial.errors if not data_valid else None
         },status=status.HTTP_400_BAD_REQUEST
         )
+     
 class ViewDoctor_api(APIView):
-    def get(self, request,id):
-        d=DoctorTable.objects.filter(id=id)
+    def get(self, request):
+        d=DoctorTable.objects.all()
         serializer=DoctorSerializer(d,many=True)
         return Response(serializer.data,status=status.HTTP_200_OK)
     
@@ -201,11 +204,25 @@ class ViewBooking_api(APIView):
         b=BookingTable.objects.filter(id=id)
         serializer=BookingSerializer(b,many=True)
         return Response(serializer.data,status=status.HTTP_200_OK)
+class BookappoinmentAPIView(APIView):
+    def post(self, request, id):
+        try:
+            user=UserTable.objects.get(LOGIN_id=id)
+        except UserTable.DoesNotExist:
+               return Response({'message':'User not found'}, status=status.HTTP_404_NOT_FOUND)
+        data=request.data.copy()
+        serializer=BookingSerializer(data=data)
+        if serializer.is_valid():
+            booking =serializer.save(USER=user)
+            return Response({'message':'Appointment booked succesfully','booking_id':booking.id}, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 class ViewFeedback_api(APIView):
      def get(self, request,id):
         f=FeedbackTable.objects.filter(id=id)
         serializer=FeedbackSerializer(f,many=True)
         return Response(serializer.data,status=status.HTTP_200_OK)
+     
 class ViewPrescription_api(APIView):
      def get(self, request,id):
         p=PrescriptionTable.objects.filter(id=id)

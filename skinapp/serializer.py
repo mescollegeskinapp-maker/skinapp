@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from .models import BookingTable, DoctorTable , FeedbackTable, PrescriptionTable
+from .models import *
 
 class DoctorSerializer(ModelSerializer):
   class Meta:
@@ -21,13 +21,13 @@ class PrescriptionSerializer(ModelSerializer):
         fields = ['Prescription']
 class IntakingmedicineSerializer(ModelSerializer):
   class Meta:
-        model = PrescriptionTable
+        model = IntakingmedicineTable
         fields = ['MedicineName','prescriptionimage','description']
 class LoginSerializer(ModelSerializer):
   class Meta:
-        model = PrescriptionTable
-        fields = ['username','password','usertype']
+        model = LoginTable
+        fields = ['username','password']
 class UserSerializer(ModelSerializer):
   class Meta:
-        model = PrescriptionTable
-        fields = ['name','age','mobileno,gender','email']
+        model = UserTable
+        fields = ['name','age','mobileno','gender','email']
