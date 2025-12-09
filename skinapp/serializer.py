@@ -4,17 +4,20 @@ from .models import *
 class DoctorSerializer(ModelSerializer):
   class Meta:
         model = DoctorTable
-        fields = ['name', 'age', 'gender', 'field', 'hospitalname', 'mobileno']
+        fields = ['id','name', 'age', 'gender', 'field', 'hospitalname', 'mobileno']
 
 
 class BookingSerializer(ModelSerializer):
-  class Meta:
+    DOCTORID = DoctorSerializer()
+
+    class Meta:
         model = BookingTable
-        fields = ['USERID','DOCTORID','appoinmentdate','status']
+        fields = ['id','DOCTORID', 'appoinmentdate', 'status']
+
 class FeedbackSerializer(ModelSerializer):
   class Meta:
         model = FeedbackTable
-        fields = ['feedback']
+        fields = ['rating', 'feedback']
 class PrescriptionSerializer(ModelSerializer):
   class Meta:
         model = PrescriptionTable
@@ -22,7 +25,7 @@ class PrescriptionSerializer(ModelSerializer):
 class IntakingmedicineSerializer(ModelSerializer):
   class Meta:
         model = IntakingmedicineTable
-        fields = ['MedicineName','prescriptionimage','description']
+        fields = ['id','MedicineName','prescriptionimage','description']
 class LoginSerializer(ModelSerializer):
   class Meta:
         model = LoginTable

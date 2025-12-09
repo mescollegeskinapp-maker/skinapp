@@ -32,6 +32,7 @@ class BookingTable(models.Model):
 class FeedbackTable(models.Model):
     USERID=models.ForeignKey(UserTable,on_delete=models.CASCADE)
     date=models.DateField(auto_now_add=True)
+    rating=models.IntegerField(null=True, blank=True)
     feedback=models.CharField(max_length=200, null=True, blank=True)
 
 class PrescriptionTable(models.Model):

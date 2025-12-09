@@ -201,30 +201,86 @@ class ViewDoctor_api(APIView):
     
 class ViewBooking_api(APIView):
      def get(self, request,id):
-        b=BookingTable.objects.filter(id=id)
+        b=BookingTable.objects.filter(USERID__LOGINID__id=id)
         serializer=BookingSerializer(b,many=True)
         return Response(serializer.data,status=status.HTTP_200_OK)
-class BookappoinmentAPIView(APIView):
+
+class Bookappoinment_api(APIView):
     def post(self, request, id):
         try:
-            user=UserTable.objects.get(LOGIN_id=id)
+            user=UserTable.objects.get(LOGINID_id=id)
         except UserTable.DoesNotExist:
                return Response({'message':'User not found'}, status=status.HTTP_404_NOT_FOUND)
         data=request.data.copy()
         serializer=BookingSerializer(data=data)
         if serializer.is_valid():
-            booking =serializer.save(USER=user)
+            booking =serializer.save(USERID=user)
             return Response({'message':'Appointment booked succesfully','booking_id':booking.id}, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 class ViewFeedback_api(APIView):
-     def get(self, request,id):
-        f=FeedbackTable.objects.filter(id=id)
-        serializer=FeedbackSerializer(f,many=True)
-        return Response(serializer.data,status=status.HTTP_200_OK)
+    #  def get(self, request,id):
+    #     f=FeedbackTable.objects.filter(USERID__LOGINID_id=id)
+    #     serializer=FeedbackSerializer(f,many=True)
+    #     return Response(serializer.data,status=status.HTTP_200_OK)
+     def post(self, request,id):
+        try:
+            user=UserTable.objects.get(LOGINID_id=id)
+        except UserTable.DoesNotExist:
+               return Response({'message':'User not found'}, status=status.HTTP_404_NOT_FOUND)
+        data=request.data.copy()
+        serializer=FeedbackSerializer(data=data)
+        if serializer.is_valid():
+            feedback =serializer.save(USERID=user)
+            return Response({'message':'Feedback added succesfully','feedback_id':feedback.id}, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
      
 class ViewPrescription_api(APIView):
      def get(self, request,id):
-        p=PrescriptionTable.objects.filter(id=id)
-        serializer=PrescriptionSerializer(p,many=True)
-        return Response(serializer.data,status=status.HTTP_200_OK)
+        p = PrescriptionTable.objects.filter(BookingID__id=id)
+        serializer = PrescriptionSerializer(p, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+     
+class Addmedicine_api(APIView):
+      def post(self, request, id):
+        try:
+            user=UserTable.objects.get(LOGINID_id=id)
+        except UserTable.DoesNotExist:
+               return Response({'message':'User not found'}, status=status.HTTP_404_NOT_FOUND)
+        data=request.data.copy()
+        serializer=IntakingmedicineSerializer(data=data)
+        if serializer.is_valid():
+            booking =serializer.save(USER=user)
+            return Response({'message':'medicine added succesfully','booking_id':booking.id}, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+class ViewMedicine_api(APIView):
+    def get(self, request, id):
+        user = UserTable.objects.get(LOGINID_id=id)
+        m = IntakingmedicineTable.objects.filter(USER=user)
+        serializer = IntakingmedicineSerializer(m, many=True)
+        return Response(serializer.data)
+
+class EditMedicine_api(APIView):
+    def put(self, request, id):
+        try:
+            med = IntakingmedicineTable.objects.get(id=id)
+        except:
+            return Response({"error": "Not Found"}, status=404)
+
+        serializer = IntakingmedicineSerializer(med, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"message": "Updated Successfully"})
+        return Response(serializer.errors, status=400)
+
+class DeleteMedicine_api(APIView):
+    def delete(self, request, id):
+        try:
+            med = IntakingmedicineTable.objects.get(id=id)
+            med.delete()
+            return Response({"message": "Deleted"}, status=200)
+        except:
+            return Response({"error": "Not Found"}, status=404)

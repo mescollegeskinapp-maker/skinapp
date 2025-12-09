@@ -26,8 +26,13 @@ urlpatterns = [
     path('LoginPage_api', LoginPage_api.as_view(), name='LoginPage_api'),
     path('UserReg_api', UserReg_api.as_view(), name='UserReg_api'),
     path('ViewDoctor_api', ViewDoctor_api.as_view(), name='ViewDoctor_api'),
-    path('ViewBooking_api', ViewBooking_api.as_view(), name='ViewBooking_api'),
-    path('ViewFeedback_api', ViewFeedback_api.as_view(), name='ViewFeedback_api'),
-    path('ViewPrescription_api', ViewPrescription_api.as_view(), name='ViewPrescription_api'),
-    
+    path('ViewBooking_api/<int:id>', ViewBooking_api.as_view(), name='ViewBooking_api'),
+    path('ViewFeedback_api/<int:id>', ViewFeedback_api.as_view(), name='ViewFeedback_api'),
+    path('ViewPrescription_api/<int:id>', ViewPrescription_api.as_view(), name='ViewPrescription_api'),
+    path('Bookappointment_api/<int:id>', Bookappoinment_api.as_view(), name='Bookappointment_api'),
+    path('Addmedicine_api/<int:id>', Addmedicine_api.as_view(), name='Addmedicine_api'),
+    path('ViewMedicine_api/<int:id>', ViewMedicine_api.as_view(), name='ViewIntakingmedicine_api'),
+    path('EditMedicine_api/<int:id>', EditMedicine_api.as_view(), name='EditIntakingmedicine_api'),
+    path('DeleteMedicine_api/<int:id>', DeleteMedicine_api.as_view(), name='DeleteIntakingmedicine_api'),
+
 ]
