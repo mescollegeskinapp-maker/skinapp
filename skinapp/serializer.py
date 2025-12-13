@@ -8,6 +8,12 @@ class DoctorSerializer(ModelSerializer):
 
 
 class BookingSerializer(ModelSerializer):
+
+    class Meta:
+        model = BookingTable
+        fields = ['DOCTORID', 'appoinmentdate']
+
+class BookingHistorySerializer(ModelSerializer):
     DOCTORID = DoctorSerializer()
 
     class Meta:

@@ -34,5 +34,7 @@ urlpatterns = [
     path('ViewMedicine_api/<int:id>', ViewMedicine_api.as_view(), name='ViewIntakingmedicine_api'),
     path('EditMedicine_api/<int:id>', EditMedicine_api.as_view(), name='EditIntakingmedicine_api'),
     path('DeleteMedicine_api/<int:id>', DeleteMedicine_api.as_view(), name='DeleteIntakingmedicine_api'),
-
+    path('ViewProfile_api/<int:id>',ViewProfile_api.as_view(), name='ViewProfile_api'),
+    path('EditProfile_api/<int:id>',EditProfile_api.as_view(), name='EditProfile_api'),
+    path('ChangePassword_api/<int:id>',ChangePassword_api.as_view(), name='ChangePassword_api'),
 ]

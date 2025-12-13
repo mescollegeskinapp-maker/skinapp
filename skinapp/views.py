@@ -86,7 +86,7 @@ class AddPrescriptionView(View):
             f.save()
 
        
-        return HttpResponse('''<script>alert("Prescription added  Successfully");window.location=("/adminhome")</script>''')
+        return HttpResponse('''<script>alert("Prescription added  Successfully");window.location=("/viewpatientreq")</script>''')
 
     
 class ViewPatientreqView(View):
@@ -192,7 +192,36 @@ class UserReg_api(APIView):
                 'user_errors':user_serial.errors if not data_valid else None
         },status=status.HTTP_400_BAD_REQUEST
         )
-     
+class ViewProfile_api(APIView):
+    def get(self, request,id):
+        d=UserTable.objects.get(LOGINID_id=id)
+        serializer=UserSerializer(d)
+        return Response(serializer.data,status=status.HTTP_200_OK)
+    def post(self, request, id):
+        try:
+            user=UserTable.objects.get(LOGINID_id=id)
+        except UserTable.DoesNotExist:
+               return Response({'message':'User not found'}, status=status.HTTP_404_NOT_FOUND)
+        data=request.data.copy()
+        serializer=UserSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'message':'Profile updated succesfully'}, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class EditProfile_api(APIView):
+    def post(self, request, id):
+        try:
+            user = UserTable.objects.get(LOGINID_id=id)
+        except:
+            return Response({"error": "Not Found"}, status=404)
+
+        serializer = UserSerializer(user, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"message": "Updated Successfully"})
+        return Response(serializer.errors, status=400)
+        
 class ViewDoctor_api(APIView):
     def get(self, request):
         d=DoctorTable.objects.all()
@@ -202,11 +231,12 @@ class ViewDoctor_api(APIView):
 class ViewBooking_api(APIView):
      def get(self, request,id):
         b=BookingTable.objects.filter(USERID__LOGINID__id=id)
-        serializer=BookingSerializer(b,many=True)
+        serializer=BookingHistorySerializer(b,many=True)
         return Response(serializer.data,status=status.HTTP_200_OK)
 
 class Bookappoinment_api(APIView):
     def post(self, request, id):
+        print("#######################",request.data)
         try:
             user=UserTable.objects.get(LOGINID_id=id)
         except UserTable.DoesNotExist:
@@ -214,7 +244,7 @@ class Bookappoinment_api(APIView):
         data=request.data.copy()
         serializer=BookingSerializer(data=data)
         if serializer.is_valid():
-            booking =serializer.save(USERID=user)
+            booking =serializer.save(USERID=user, status='Pending')
             return Response({'message':'Appointment booked succesfully','booking_id':booking.id}, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -284,3 +314,21 @@ class DeleteMedicine_api(APIView):
             return Response({"message": "Deleted"}, status=200)
         except:
             return Response({"error": "Not Found"}, status=404)
+
+class ChangePassword_api(APIView):
+    def post(self, request, id):
+        try:
+            login = LoginTable.objects.get(id=id)
+        except:
+            return Response({"error": "Not Found"}, status=404)
+        old_password = request.data.get('old_password')
+        new_password = request.data.get('new_password')
+        confirm_password = request.data.get('confirm_password')
+        if new_password != confirm_password:
+            return Response({"error": "New password and confirm password do not match"}, status=400)
+        if login.password != old_password:
+            return Response({"error": "Old password is incorrect"}, status=400)
+
+        login.password = new_password
+        login.save()
+        return Response({"message": "Password changed successfully"}, status=200)
