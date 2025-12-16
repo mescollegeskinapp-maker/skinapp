@@ -330,5 +330,5 @@ class ChangePassword_api(APIView):
             return Response({"error": "Old password is incorrect"}, status=400)
 
         login.password = new_password
-        login.save()
+        login.save() 
         return Response({"message": "Password changed successfully"}, status=200)
