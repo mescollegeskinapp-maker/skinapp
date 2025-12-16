@@ -91,7 +91,7 @@ class AddPrescriptionView(View):
     
 class ViewPatientreqView(View):
     def get(self, request):
-            obj=BookingTable.objects.all()
+            obj=BookingTable.objects.filter(DOCTORID__LOGINID__id = request.session['userid'])
             return render(request, 'doctor/viewpatientreq.html',{'data':obj})
 class AcceptBooking(View):
     def get(self, request,id):
