@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,6 +7,20 @@
 </head>
 <body>
     <table border="1">
+        <tr>
+            <form action="searchintakingmedicine" method="post">
+                {% csrf_token %}
+            <td> 
+                
+                <select name="search" id="">
+                    {% for i in data1 %} 
+                    <option value="{{ i.id }}">{{ i.name }}</option>
+                    {% endfor %}
+                </select>
+                <input type="submit">
+            </td>
+            </form>
+        </tr>
         <tr>
             <th>Medicine Name</th>
             <th>Prescription Image</th>
@@ -27,5 +41,201 @@
             <td>{{ item.date }}</td>
         </tr>
         {% endfor %}
+</body>
+</html>
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Intaking Medicine</title>
+
+<style>
+:root{
+  --primary:#6d5dfc;
+  --bg:#f4f6fb;
+  --card:#ffffff;
+  --text:#1f2937;
+  --muted:#6b7280;
+  --border:#e5e7eb;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:'Inter','Segoe UI',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+/* Page Container */
+.container{
+  max-width:1200px;
+  margin:40px auto;
+  padding:30px;
+  background:var(--card);
+  border-radius:20px;
+  box-shadow:0 20px 40px rgba(0,0,0,.08);
+}
+
+/* Page Title */
+h2{
+  margin-bottom:20px;
+  font-size:24px;
+  font-weight:700;
+  color:var(--primary);
+}
+
+/* Filter Section */
+.filter-box{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:25px;
+}
+
+select{
+  padding:10px 14px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  font-size:14px;
+  outline:none;
+}
+
+select:focus{
+  border-color:var(--primary);
+}
+
+.filter-btn{
+  padding:10px 18px;
+  border:none;
+  border-radius:10px;
+  background:linear-gradient(135deg,var(--primary),#8f85ff);
+  color:white;
+  font-size:14px;
+  font-weight:600;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.filter-btn:hover{
+  opacity:.9;
+  transform:translateY(-1px);
+}
+
+/* Table */
+table{
+  width:100%;
+  border-collapse:collapse;
+  border-radius:14px;
+  overflow:hidden;
+}
+
+thead{
+  background:linear-gradient(135deg,var(--primary),#8f85ff);
+  color:white;
+}
+
+th, td{
+  padding:14px 16px;
+  text-align:left;
+  font-size:14px;
+}
+
+th{
+  font-size:13px;
+  text-transform:uppercase;
+  letter-spacing:.5px;
+}
+
+tbody tr{
+  border-bottom:1px solid var(--border);
+  transition:.2s;
+}
+
+tbody tr:hover{
+  background:#f9fafb;
+}
+
+/* Image */
+.medicine-img{
+  width:90px;
+  height:90px;
+  object-fit:cover;
+  border-radius:12px;
+  border:1px solid var(--border);
+}
+
+.no-image{
+  color:var(--muted);
+  font-size:13px;
+}
+
+/* Description */
+.description{
+  max-width:350px;
+  color:#374151;
+}
+
+/* Responsive */
+@media(max-width:768px){
+  th, td{padding:10px}
+  .filter-box{flex-direction:column; align-items:flex-start}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h2>Intaking Medicine</h2>
+
+  <!-- Search / Filter -->
+  <form action="searchintakingmedicine" method="post">
+    {% csrf_token %}
+    <div class="filter-box">
+      <select name="search">
+        {% for i in data1 %}
+          <option value="{{ i.id }}">{{ i.name }}</option>
+        {% endfor %}
+      </select>
+      <button type="submit" class="filter-btn">Search</button>
+    </div>
+  </form>
+
+  <!-- Table -->
+  <table>
+    <thead>
+      <tr>
+        <th>Medicine Name</th>
+        <th>Prescription Image</th>
+        <th>Description</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for item in data %}
+      <tr>
+        <td>{{ item.MedicineName }}</td>
+        <td>
+          {% if item.prescriptionimage %}
+            <img src="{{ item.prescriptionimage.url }}" class="medicine-img" alt="Prescription Image">
+          {% else %}
+            <span class="no-image">No Image</span>
+          {% endif %}
+        </td>
+        <td class="description">{{ item.description }}</td>
+        <td>{{ item.date }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+</div>
+
 </body>
 </html>

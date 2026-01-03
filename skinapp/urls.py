@@ -22,6 +22,7 @@ urlpatterns = [
     path('editprescription/<int:id>', EditPrescription.as_view(), name='editprescription'),
     path('doctorhome',doctorhomeView.as_view(),name='doctorhome'),
     path('intakingmedicine', IntakingmedicineView.as_view(), name='intakingmedicine'),
+    path('searchintakingmedicine', searchintakingmedicine.as_view(), name='searchintakingmedicine'),
     ##################################api urls #########################################
     path('LoginPage_api', LoginPage_api.as_view(), name='LoginPage_api'),
     path('UserReg_api', UserReg_api.as_view(), name='UserReg_api'),
@@ -37,4 +38,5 @@ urlpatterns = [
     path('ViewProfile_api/<int:id>',ViewProfile_api.as_view(), name='ViewProfile_api'),
     path('EditProfile_api/<int:id>',EditProfile_api.as_view(), name='EditProfile_api'),
     path('ChangePassword_api/<int:id>',ChangePassword_api.as_view(), name='ChangePassword_api'),
+    path('ForgotPassword_api',ForgotPassword_api.as_view(), name='ForgotPassword_api'),
 ]

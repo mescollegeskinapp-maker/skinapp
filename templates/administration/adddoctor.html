@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -29,5 +29,206 @@
     <input type="text" name="mobileno"><br><br>
     <input type="submit" value="add doctor">
     </form> 
+</body>
+</html>
+
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Doctor</title>
+
+<style>
+:root{
+  --primary:#2563eb;
+  --bg:#0f172a;
+  --card:rgba(255,255,255,0.12);
+  --border:rgba(255,255,255,0.25);
+  --text:#e5e7eb;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:Inter,Segoe UI,system-ui,sans-serif;
+  background:
+    radial-gradient(800px 400px at top right,#2563eb55,transparent),
+    radial-gradient(600px 300px at bottom left,#22c55e55,transparent),
+    var(--bg);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.form-card{
+  width:900px;
+  max-width:100%;
+  background:var(--card);
+  backdrop-filter:blur(14px);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:30px 36px;
+  color:var(--text);
+  box-shadow:0 20px 40px rgba(0,0,0,.35);
+}
+
+.form-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:24px;
+}
+
+.form-header h2{
+  margin:0;
+  font-size:26px;
+  letter-spacing:.3px;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px 22px;
+}
+
+label{
+  font-size:13px;
+  opacity:.85;
+}
+
+input[type=text],
+input[type=password]{
+  width:100%;
+  padding:12px 14px;
+  margin-top:6px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:rgba(0,0,0,.25);
+  color:white;
+  outline:none;
+  transition:.25s;
+}
+
+input::placeholder{color:#cbd5f5aa}
+
+input:focus{
+  border-color:var(--primary);
+  box-shadow:0 0 0 3px #2563eb44;
+}
+
+.gender{
+  grid-column:span 2;
+}
+
+.gender-box{
+  display:flex;
+  gap:22px;
+  margin-top:8px;
+}
+
+.gender-box label{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-weight:500;
+}
+
+.actions{
+  grid-column:span 2;
+  margin-top:10px;
+}
+
+button{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:12px;
+  background:linear-gradient(135deg,#2563eb,#1d4ed8);
+  color:white;
+  font-size:15px;
+  font-weight:600;
+  cursor:pointer;
+  transition:.25s;
+}
+
+button:hover{
+  transform:translateY(-1px);
+  box-shadow:0 10px 20px #2563eb55;
+}
+
+@media(max-width:720px){
+  .form-grid{grid-template-columns:1fr}
+  .gender,.actions{grid-column:span 1}
+}
+</style>
+</head>
+
+<body>
+
+<form method="post" class="form-card">
+{% csrf_token %}
+
+  <div class="form-header">
+    <h2>Add Doctor</h2>
+  </div>
+
+  <div class="form-grid">
+
+    <div>
+      <label>Name</label>
+      <input type="text" name="name">
+    </div>
+
+    <div>
+      <label>Age</label>
+      <input type="text" name="age">
+    </div>
+
+    <div class="gender">
+      <label>Gender</label>
+      <div class="gender-box">
+        <label><input type="radio" name="gender" value="male"> Male</label>
+        <label><input type="radio" name="gender" value="female"> Female</label>
+        <label><input type="radio" name="gender" value="others"> Others</label>
+      </div>
+    </div>
+
+    <div>
+      <label>Field</label>
+      <input type="text" name="field">
+    </div>
+
+    <div>
+      <label>Hospital Name</label>
+      <input type="text" name="hospitalname">
+    </div>
+
+    <div>
+      <label>Username</label>
+      <input type="text" name="username">
+    </div>
+
+    <div>
+      <label>Password</label>
+      <input type="password" name="password">
+    </div>
+
+    <div>
+      <label>Mobile No</label>
+      <input type="text" name="mobileno">
+    </div>
+
+    <div class="actions">
+      <button type="submit">Add Doctor</button>
+    </div>
+
+  </div>
+</form>
+
 </body>
 </html>

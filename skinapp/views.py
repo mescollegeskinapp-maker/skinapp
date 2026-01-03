@@ -143,10 +143,28 @@ class doctorhomeView(View):
             return render(request, 'doctor/doctorhome.html')    
 
 class IntakingmedicineView(View):
-    
     def get(self, request):
         obj=IntakingmedicineTable.objects.all()
-        return render(request, 'doctor/intakingmedicine.html', {'data':obj})
+        obj1=BookingTable.objects.filter(DOCTORID__LOGINID__id=request.session['userid'], status='Accepted')
+        list=[]
+        for item in obj1:
+            list.append(item.USERID.id)
+        obj2=UserTable.objects.filter(id__in=list)
+        return render(request, 'doctor/intakingmedicine.html', {'data1':obj2})
+    
+    
+class searchintakingmedicine(View):
+    def post(self, request):
+        search = request.POST.get('search')
+        print("#######################", search)
+        obj=IntakingmedicineTable.objects.filter(USER__id=search)
+        obj1=BookingTable.objects.filter(DOCTORID__LOGINID__id=request.session['userid'], status='Accepted')
+        list=[]
+        for item in obj1:
+            list.append(item.USERID.id)
+        obj2=UserTable.objects.filter(id__in=list)
+        return render(request, 'doctor/intakingmedicine.html', {'data':obj, 'data1':obj2})
+    
     
 #########################api views #########################
 from rest_framework.views import APIView

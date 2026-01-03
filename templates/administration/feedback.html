@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html>
 <head>
   <title>feedback</title>
@@ -30,6 +30,109 @@
       
         
       
+    </tbody>
+  </table>
+
+</body>
+</html>
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Feedback</title>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background-color: #f4f6fb;
+      margin: 0;
+      padding: 30px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #333;
+      letter-spacing: 0.5px;
+    }
+
+    table {
+      width: 100%;
+      max-width: 900px;
+      margin: auto;
+      border-collapse: collapse;
+      background-color: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    thead {
+      background-color: #1976d2;
+      color: white;
+    }
+
+    th, td {
+      padding: 12px 16px;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    th {
+      text-transform: capitalize;
+      font-weight: 600;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #f9fafc;
+    }
+
+    tbody tr:hover {
+      background-color: #eef3ff;
+    }
+
+    td:nth-child(2) {
+      white-space: nowrap;
+    }
+
+    td:nth-child(3) {
+      color: #555;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      table {
+        font-size: 12px;
+      }
+
+      th, td {
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2>User Feedback</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Date</th>
+        <th>Feedback</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for i in data %}
+      <tr>
+        <td>{{ i.USERID.name }}</td>
+        <td>{{ i.date }}</td>
+        <td>{{ i.feedback }}</td>
+      </tr>
+      {% endfor %}
     </tbody>
   </table>
 

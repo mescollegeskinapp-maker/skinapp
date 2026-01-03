@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html>
 <head>
   <title>Simple Table</title>
@@ -46,6 +46,236 @@
      {% endfor %}
     </tbody>
   </table>
+
+</body>
+</html>
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Patient Requests</title>
+
+<style>
+:root{
+  --primary:#6d5dfc;
+  --success:#22c55e;
+  --danger:#ef4444;
+  --bg:#f4f6fb;
+  --card:#ffffff;
+  --text:#1f2937;
+  --muted:#6b7280;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:'Inter','Segoe UI',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+/* Page Container */
+.container{
+  max-width:1100px;
+  margin:50px auto;
+  padding:30px;
+  background:var(--card);
+  border-radius:18px;
+  box-shadow:0 20px 40px rgba(0,0,0,.08);
+}
+
+/* Title */
+h2{
+  margin-bottom:25px;
+  font-size:24px;
+  font-weight:700;
+  color:var(--primary);
+}
+
+/* Table */
+table{
+  width:100%;
+  border-collapse:collapse;
+  border-radius:12px;
+  overflow:hidden;
+}
+
+thead{
+  background:linear-gradient(135deg,var(--primary),#8f85ff);
+  color:white;
+}
+
+th, td{
+  padding:14px 16px;
+  text-align:left;
+  font-size:14px;
+}
+
+th{
+  text-transform:uppercase;
+  letter-spacing:.5px;
+  font-size:13px;
+}
+
+tbody tr{
+  border-bottom:1px solid #e5e7eb;
+  transition:.2s;
+}
+
+tbody tr:hover{
+  background:#f9fafb;
+}
+
+/* Status Badge */
+.badge{
+  padding:6px 12px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:600;
+}
+
+.badge.accepted{
+  background:#dcfce7;
+  color:#166534;
+}
+
+.badge.rejected{
+  background:#fee2e2;
+  color:#991b1b;
+}
+
+.badge.pending{
+  background:#e0e7ff;
+  color:#3730a3;
+}
+
+/* Buttons */
+.btn{
+  padding:7px 14px;
+  border-radius:8px;
+  border:none;
+  font-size:13px;
+  font-weight:600;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.btn-accept{
+  background:var(--success);
+  color:white;
+}
+
+.btn-reject{
+  background:var(--danger);
+  color:white;
+}
+
+.btn:hover{
+  opacity:.85;
+  transform:translateY(-1px);
+}
+
+.action-group{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+/* Prescription link */
+.prescription{
+  color:var(--primary);
+  font-weight:600;
+  text-decoration:none;
+}
+
+.prescription:hover{
+  text-decoration:underline;
+}
+
+.not-available{
+  color:var(--muted);
+  font-size:13px;
+}
+
+/* Responsive */
+@media(max-width:768px){
+  table{font-size:12px}
+  th,td{padding:10px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h2>Patient Requests</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Patient Name</th>
+        <th>Appointment Date</th>
+        <th>Status</th>
+        <th>Prescription</th>
+      </tr>
+    </thead>
+
+    <tbody>
+    {% for i in data %}
+      <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{i.USERID.name}}</td>
+        <td>{{i.appoinmentdate}}</td>
+
+        <td>
+          {% if i.status == "Accepted" %}
+            <span class="badge accepted">Accepted</span>
+          {% elif i.status == "Rejected" %}
+            <span class="badge rejected">Rejected</span>
+          {% else %}
+            <span class="badge pending">Pending</span>
+          {% endif %}
+        </td>
+
+        <td>
+          {% if i.status == "Rejected" %}
+            <div class="action-group">
+              <a href="AcceptBooking/{{i.id}}">
+                <button class="btn btn-accept">Accept</button>
+              </a>
+            </div>
+
+          {% elif i.status == "Accepted" %}
+            <div class="action-group">
+              <a href="RejectBooking/{{i.id}}">
+                <button class="btn btn-reject">Reject</button>
+              </a>
+              <a class="prescription" href="addprescription/{{i.id}}">
+                Add Prescription
+              </a>
+            </div>
+
+          {% else %}
+            <div class="action-group">
+              <a href="AcceptBooking/{{i.id}}">
+                <button class="btn btn-accept">Accept</button>
+              </a>
+              <a href="RejectBooking/{{i.id}}">
+                <button class="btn btn-reject">Reject</button>
+              </a>
+            </div>
+          {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+</div>
 
 </body>
 </html>

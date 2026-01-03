@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -26,5 +26,145 @@
     <input type="text" name="mobileno" value="{{data.mobileno}}"><br><br>
     <input type="submit" value="Edit doctor">
     </form>
+</body>
+</html>
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edit Doctor</title>
+
+<style>
+:root{
+  --primary:#0d6efd;
+  --bg:#f4f6fb;
+  --card:#ffffff;
+  --border:#dbe0ea;
+  --text:#2c2c2c;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:'Segoe UI', Tahoma, sans-serif;
+  background:var(--bg);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.form-card{
+  width:460px;
+  max-width:100%;
+  background:var(--card);
+  border-radius:14px;
+  padding:28px 32px;
+  box-shadow:0 10px 25px rgba(0,0,0,.12);
+}
+
+h2{
+  text-align:center;
+  margin-bottom:22px;
+  color:var(--primary);
+}
+
+label{
+  display:block;
+  margin-bottom:6px;
+  font-size:14px;
+  font-weight:600;
+  color:var(--text);
+}
+
+input[type=text]{
+  width:100%;
+  padding:11px 13px;
+  border-radius:8px;
+  border:1px solid var(--border);
+  margin-bottom:14px;
+  font-size:14px;
+  outline:none;
+  transition:.25s;
+}
+
+input[type=text]:focus{
+  border-color:var(--primary);
+  box-shadow:0 0 0 3px rgba(13,110,253,.15);
+}
+
+.gender{
+  margin-bottom:14px;
+}
+
+.gender label{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  margin-right:18px;
+  font-weight:500;
+}
+
+input[type=radio]{
+  accent-color:var(--primary);
+}
+
+button{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  background:var(--primary);
+  color:white;
+  font-size:15px;
+  font-weight:600;
+  cursor:pointer;
+  transition:.25s;
+}
+
+button:hover{
+  background:#0b5ed7;
+}
+
+</style>
+</head>
+
+<body>
+
+<form method="post" class="form-card">
+{% csrf_token %}
+
+  <h2>Edit Doctor</h2>
+
+  <label>Name</label>
+  <input type="text" name="name" value="{{data.name}}">
+
+  <label>Age</label>
+  <input type="text" name="age" value="{{data.age}}">
+
+  <label>Gender</label>
+  <div class="gender">
+    <label><input type="radio" name="gender" value="male" {% if data.gender == 'male' %}checked{% endif %}> Male</label>
+    <label><input type="radio" name="gender" value="female" {% if data.gender == 'female' %}checked{% endif %}> Female</label>
+    <label><input type="radio" name="gender" value="others" {% if data.gender == 'others' %}checked{% endif %}> Others</label>
+  </div>
+
+  <label>Field</label>
+  <input type="text" name="field" value="{{data.field}}">
+
+  <label>Hospital Name</label>
+  <input type="text" name="hospitalname" value="{{data.hospitalname}}">
+
+  <label>Phone No</label>
+  <input type="text" name="mobileno" value="{{data.mobileno}}">
+
+  <button type="submit">Update Doctor</button>
+
+</form>
+
 </body>
 </html>

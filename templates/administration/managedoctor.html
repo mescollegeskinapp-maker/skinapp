@@ -1,11 +1,15 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html>
 <head>
   <title>doctor Table</title>
+  <style>
+
+   
+  </style>
 </head>
 <body>
 
-  <h2>manage doctors</h2>
+  <h2 >manage doctors</h2>
 
   <table border="1" cellpadding="8" cellspacing="0">
     <thead>
@@ -32,9 +36,158 @@
          <td>{{i.hospitalname}}</td>
         <td>{{i.mobileno}}</td>
           <td>
-          <a href="editdoctor/{{i.id}}"><button>Edit</button></a>
+          <a href="editdoctor/{{i.id}}"><button class="b1">Edit</button></a>
           <a href="DeleteDoctor/{{i.LOGINID.id}}"><button>Delete</button></a>
         
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+</body>
+</html>
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Doctor Table</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f6fb;
+      margin: 0;
+      padding: 30px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .add-btn {
+      display: inline-block;
+      margin-bottom: 15px;
+      padding: 10px 16px;
+      background-color: #4CAF50;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 500;
+    }
+
+    .add-btn:hover {
+      background-color: #43a047;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    }
+
+    thead {
+      background-color: #1976d2;
+      color: white;
+    }
+
+    th, td {
+      padding: 12px 14px;
+      text-align: center;
+    }
+
+    th {
+      text-transform: capitalize;
+      font-size: 14px;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #f9fafc;
+    }
+
+    tbody tr:hover {
+      background-color: #e6e9eb;
+    }
+
+    button {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .b1 {
+      background-color: #2196f3;
+      color: white;
+    }
+
+    .b1:hover {
+      background-color: #19191b;
+    }
+
+    .delete-btn {
+      background-color: #e53935;
+      color: white;
+    }
+
+    .delete-btn:hover {
+      background-color: #b6adad;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+      table {
+        font-size: 12px;
+      }
+
+      th, td {
+        padding: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Manage Doctors</h2>
+
+  <a href="adddoctor" class="add-btn">+ Add Doctor</a>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Field</th>
+        <th>Hospital</th>
+        <th>Mobile</th>
+        <th>Manage</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for i in data %}
+      <tr>
+        <td>{{ i.name }}</td>
+        <td>{{ i.age }}</td>
+        <td>{{ i.gender }}</td>
+        <td>{{ i.field }}</td>
+        <td>{{ i.hospitalname }}</td>
+        <td>{{ i.mobileno }}</td>
+        <td>
+          <a href="editdoctor/{{i.id}}">
+            <button class="b1">Edit</button>
+          </a>
+          <a href="DeleteDoctor/{{i.LOGINID.id}}">
+            <button class="delete-btn">Delete</button>
+          </a>
         </td>
       </tr>
       {% endfor %}
